@@ -5,10 +5,10 @@
                 enabled: true,
                 requireBase: false
             });
-    
+        
         $stateProvider
             .state('landing', {
-                url: '/',
+                url: '/landing',
                 controller: 'LandingCtrl as landing',
                 templateUrl: '/templates/landing.html'
             })
@@ -20,12 +20,12 @@
             })
         
             .state('collection',{
-                url: '/',
+                url: '/collection',
                 controller: 'CollectionCtrl as collection',
-                templaterUrl:'/templates/collection.html'
+                templateUrl: '/templates/collection.html'
             });
     }
-    
+     
     angular
         .module('blocJams', ['ui.router'])
         .config(config);
