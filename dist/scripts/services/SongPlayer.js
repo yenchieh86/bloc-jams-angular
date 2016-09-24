@@ -84,8 +84,6 @@
         */
         SongPlayer.currentTime = null;
         
-        SongPlayer.volume = null;
-        
         /**
         * @function SongPlayer.play
         * @desc use player bar play buttom to play song
@@ -169,10 +167,6 @@
                 playSong(song);
             }
             
-        };
-        
-        SongPlayer.setVolum = function(){
-            SongPlayer.volume = currentBuzzObject.setVolum();
         };
         
         return SongPlayer;
