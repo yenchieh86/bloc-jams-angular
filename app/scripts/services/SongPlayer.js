@@ -175,6 +175,11 @@
             SongPlayer.volume = currentBuzzObject.setVolum();
         };
         
+        SongPlayer.setToMute = function(){
+            SongPlayer.volume = null;
+        }
+        
+        
         return SongPlayer;
     }
     
