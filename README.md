@@ -1,164 +1,76 @@
-## Bloc Frontend Project Starter
+Bloc-Jams
+=================
+What is Bloc-jams? 
+------------------
+Bloc Jams is a music application that uses [Node.js](https://www.npmjs.com/), [Express](http://expressjs.com/), and [Bower](http://bower.io/). It allows the user to play music with interactive scroll bars and volume controls using the latest [AngularJS](https://angularjs.org/) technology.
 
-A starter application for student projects in Bloc's [Frontend Web Development Course](https://www.bloc.io/frontend-development-bootcamp).
+How does it work?
+-----------------
+Scroll through the landing page and view the random artwork that is presented. Afterword click on the Library button in the top right-hand side of the screen. It will take you to a different view instantly thanks to AngularJS and show you a myriad of albums. Click on a random album and play a song, but ensure that your volume is turned on. 
 
-## Configuration
+Package Manager Definitions
+------------------------------------------
 
-Start by cloning the repository:
+**[Node.js](https://www.npmjs.com/)** - The directory into which Node installs its app-specific packages
 
-```
-$ git clone https://github.com/Bloc/bloc-frontend-project-starter.git <your-frontend-project-name>
-```
+**[Bower](http://bower.io/)** - is a package manager for Javascript libraries that allows you to define, version, and retrieve your dependencies
 
-The project uses Grunt to run tasks in development. Thoroughly review our [resource on using Grunt](https://www.bloc.io/resources/using-grunt) before using this application. It may also help to review [our resource on NPM and `package.json` files](https://www.bloc.io/resources/npm-and-package-json).
 
-Install the project dependencies by running:
+Languages Used
+---------------
+- [HTML 5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3)
+- [Sass](http://sass-lang.com/)
+- Had some jQuery, but switched over to [AngularJS](https://angularjs.org/)
 
-```
-$ npm install
-```
 
-## Run the Application
 
-Run the application using the Gruntfile's `default` task:
 
-```
-$ grunt
-```
+Installation Steps
+-------------------
 
-The default task runs a simple server on port 3000. To view it in a any browser, go to [http://localhost:3000](http://localhost:3000).
+You should already have [Node.js](https://www.npmjs.com/), and [Bower](http://bower.io/) installed before cloning. 
 
->Note that unless the application is run [via Live Preview in Brackets](#use-in-brackets-live-preview), the browser will need to be refreshed to view the most recent changes.
+Start by cloning the repository.
 
-### Using without Angular
+`$ https://github.com/yenchieh86/bloc-jams-angular-old.git`
 
-By default, the application is configured to be used in a Single-Page Application (SPA) with AngularJS. If you're working on a project that doesn't use AngularJS, see the instructions below [for configuring the server to run in a non-SPA](#configure-server-for-non-spas).
+Once that's complete, install the remaining dependencies by running
 
-## Use in Brackets Live Preview
+`$ npm install`
 
-To use the application with the Live Preview functionality of the Brackets text editor, go to __File > Project Settings__ and add `http://localhost:3000` to the Base URL field.
+Running the Application
+------------
+Two tabs must be open in the terminal in order to run this application.
 
-![Screenshot of project settings URL in Brackets](https://bloc-global-assets.s3.amazonaws.com/images-frontend/screenshots/bloc-frontend-project-starter/live_preview_project_settings.png)
+In one tab, run
 
-The text in the application will not update on every keystroke, but changes will automatically push when you save the file.
 
-## Directory Structure
+`$ npm start`
 
-```
-├── Gruntfile.js
-├── LICENSE
-├── Procfile
-├── README.md
-├── app
-│   ├── assets
-│   │   └── images
-│   │       └── bloc-logo-white.png
-│   ├── pages
-│   │   └── index.html
-│   ├── scripts
-│   │   └── app.js
-│   ├── styles
-│   │   └── style.css
-│   └── templates
-│       └── home.html
-├── package.json
-└── server.js
-```
+In another tab, 
 
-All code, styles, markup, and assets should be saved to the `app` directory. Saving changes creates a new directory, `dist`, that holds final copies of the application content. `dist` is the directory the server uses to serve the content displayed by the browser. __Do not edit files in `dist`__ because it will reset changes to your work every time you save. Restrict all edits to files in the `app` directory.
+`Use this terminal for git commands`
 
-### Assets/Images
+The application runs on port 3000. To change the port, modify the number highlighted below
 
-Add images to the `app/assets/images` directory. To reference images in HTML, use the path `/assets/images/<image file name>.jpg`. For example, to include the image called `bloc-white-logo.png`, the path for the `src` attribute in the HTML would be:
-
-```html 
-<img src="/assets/images/bloc-white-logo.png">
+```js
+connect: {
+  server: {
+    options: {
+      // Change this value here to the desired port number
+      port: 3000,
+      hostname: 'localhost',
+      base: './dist',
+      useAvailablePort: true
+    }
+  }
+}
 ```
 
-__Note:__ A sample image has been added to `app/images`. To remove the image from the application, run the following command from the root of repo:
 
-```bash
-$ rm -f app/assets/images/bloc-white-logo.png
-```
 
-To reference any other assets, like the music in Bloc Jams, use the path `assets/<asset-type>/<asset-file>`. The Gruntfile is pre-configured to handle assets in a subfolder with the `.mp3` extension.
+Screenshots
+-----------
 
->See lines 14 and 35 of `Gruntfile.js` for the accepted file extensions of assets.
-
-### Difference between Pages and Templates
-
-The `templates` directory should hold any HTML files used as templates in Angular states configured by UI Router. All other HTML files belong in the `pages` directory.
-
-### Procfile
-
-The `Procfile` is a file for [providing instructions to Heroku servers](https://devcenter.heroku.com/articles/procfile) that run after pushing new code to the repository. __Do not change the contents of the Procfile__ or Heroku will throw an error when you attempt to visit your application.
-
->For more information about how to use Heroku with Bloc's frontend applications, see our [resource on using Heroku](https://www.bloc.io/resources/using-heroku-frontend).
-
-## Configure Server for Non-SPAs
-
-By default, `bloc-frontend-project-starter` is configured to be used with SPAs. If you're not building a project with Angular, then modify `server.js` with the following:
-
-```diff
-var Hapi = require('hapi'),
-    path = require('path'),
-    port = process.env.PORT || 3000,
-    server = new Hapi.Server(port),
-    routes = {
-        css: {
-            method: 'GET',
-            path: '/styles/{path*}',
-            handler: createDirectoryRoute('styles')
-        },
-        js: {
-            method: 'GET',
-            path: '/scripts/{path*}',
-            handler: createDirectoryRoute('scripts')
-        },
-        assets: {
-            method: 'GET',
-            path: '/assets/{path*}',
-            handler: createDirectoryRoute('assets')
-        },
-        templates: {
-            method: 'GET',
-            path: '/templates/{path*}',
-            handler: createDirectoryRoute('templates')
-        },
--        spa: {
-+        staticPages: {
-             method: 'GET',
-             path: '/{path*}',
--            handler: {
--                file: path.join(__dirname, '/dist/index.html')
--            }
-+            handler: createDirectoryRoute('/')
-         }
-     };
- 
--server.route([ routes.css, routes.js, routes.images, routes.templates, routes.spa ]);
-+server.route([ routes.css, routes.js, routes.images, routes.templates, routes.staticPages ]);
-...
-```
-
-Optionally, delete the `templates` directory and all references to it in `Gruntfile.js` to remove unnecessary files (templates are only useful for SPAs). However, keeping them in the repository won't affect your application.
-
-## Grunt plugins
-
-A list of the Grunt plugins in this application.
-
-#### Watch
-
-[Grunt watch](https://github.com/gruntjs/grunt-contrib-watch) watches for changes to file content and then executes Grunt tasks when a change is detected.
-
-#### Copy
-
-[Grunt copy](https://github.com/gruntjs/grunt-contrib-copy) copies files from our development folders and puts them in the folder that will be served with the frontend of your application.
-
-#### Clean
-
-[Grunt clean](https://github.com/gruntjs/grunt-contrib-clean) "cleans" or removes all files in your distribution folder (`dist`) so that logic in your stylesheets, templates, or scripts isn't accidentally overridden by previous code in the directory.
-
-#### Hapi
-
-[Grunt Hapi](https://github.com/athieriot/grunt-hapi) runs a server using [`HapiJS`](http://hapijs.com/). Happy is a Node web application framework with robust configuration options.
+![Imgur](https://media.licdn.com/media-proxy/ext?w=404&h=300&f=&hash=C5VwCJ9hLE95EldvGCNixETPa7s%3D&ora=1%2CaFBCTXdkRmpGL2lvQUFBPQ%2CxAVta9Er0Vinkhwfjw8177yE41y87UNCVordEGXyD3u0qYrdf3bqfcTbKOehuVpDcXgclAJndvL6FDLnD5S-Ioq8f9wg3ZTsLI24ZxUBbFImi24)
